@@ -10,10 +10,8 @@
 **Run**
     Navigate into your new site’s directory and start it up.
 
-    ```shell
     cd cat-dogs-website/
     npm run develop
-    ```
 
 **Open website**
     Site is now running at http://localhost:8000
