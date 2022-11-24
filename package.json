@@ -24,6 +24,13 @@
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",
-    "typescript": "^4.8.4"
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "eslint": "^8.28.0",
+    "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.5.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.31.11",
+    "typescript": "^4.9.3"
   }
 }
