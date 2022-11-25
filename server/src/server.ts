@@ -2,11 +2,12 @@
 const { ApolloServer } = require('apollo-server')
 const Constant = require('./data/DogConstant')
 const mysql = require('mysql2')
+const computeLib = require('./compute/compute')
 
 const typeDefs = `
   type Query {
     catFact: String
-    dogURL(index: Int!): String
+    dogURL(inputNumber: Int!): String
   }
 `
 
@@ -17,15 +18,16 @@ async function fetchCatData (): Promise<String> {
   return fact.fact
 }
 
-function fetchDogData (index: number): String {
+function fetchDogData (inputNumber: number): String {
+  const index = computeLib.dogIndexLogic(inputNumber, connection)
   return Constant.DOG_URLS[index]
 }
 
 const resolvers = {
   Query: {
     catFact: fetchCatData,
-    dogURL: (_: unknown, { index }: { index: number }): String => {
-      return fetchDogData(index)
+    dogURL: (_: unknown, { inputNumber }: { inputNumber: number }): String => {
+      return fetchDogData(inputNumber)
     }
   }
 }
