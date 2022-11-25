@@ -7,20 +7,21 @@
   Gatsby lightweight project challenge
 </h1>
 
-**Run**
-    Navigate into your new site’s directory and start it up.
+**Run client**
 
-    cd cat-dogs-website/
-    npm run develop
+    cd cat-dogs-website/client
+    npm install
+    npm start
 
 **Open website**
 
 Site is now running at http://localhost:8000
 
-**Start server**
+**Run server**
 
     cd cat-dogs-website/server
-    ts-node server.ts
+    npm install
+    npm start
 
 **Open server website**
 
