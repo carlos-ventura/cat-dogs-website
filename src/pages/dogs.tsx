@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Link } from 'gatsby'
-import dogURLs from '../data/DogURLs'
 import { useState } from 'react'
 
 const randomIntFromInterval = (min: number, max: number): number => Math.floor(Math.random() * (max - min + 1) + min)
@@ -16,7 +15,7 @@ const allOnesBinary = (n: number): boolean => {
 }
 
 const DogsPage = (): JSX.Element => {
-  const [dogIndex, setDogIndex] = useState<number | undefined>()
+  const [dogURL, setDogURL] = useState<string | null>(null)
   const [inputNumber, setInputNumber] = useState<number>()
   const [cycle, setCycle] = useState(false)
 
@@ -41,10 +40,29 @@ const DogsPage = (): JSX.Element => {
     }
   }
 
+  async function fetchDogDataGraphQL (index: number): Promise<void> {
+    const response = await fetch(String(process.env.GRAPHQL_URL), {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        query: `
+            query DogURL($index: Int!) {
+              dogURL(index: $index)
+            }
+        `,
+        variables: { index }
+      })
+    })
+    const { data } = await response.json()
+    setDogURL(data.dogURL)
+  }
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
     const result = dogIndexLogic(inputNumber ?? 0)
-    setDogIndex(result)
+    void fetchDogDataGraphQL(result)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -63,10 +81,10 @@ const DogsPage = (): JSX.Element => {
         <button type="submit">Generate magic dog picture</button>
       </form>
       <br/> <br/>
-      {dogIndex !== undefined && (
+      {(dogURL != null) && (
         <img
           alt="Dog image"
-          src={dogURLs[dogIndex]}
+          src={dogURL}
           width="auto"
           height={500}
         />
