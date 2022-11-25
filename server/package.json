@@ -4,20 +4,28 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prestart": "ts-node mysqlCheck.ts",
+    "prestart": "ts-node ./src/scripts/mysqlCheck.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node server.ts"
+    "start": "ts-node ./src/server.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^18.11.9"
+    "@types/node": "^18.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "eslint": "^8.28.0",
+    "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.5.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "typescript": "^4.9.3"
   },
   "dependencies": {
     "apollo-server": "^3.11.1",
+    "dotenv": "^16.0.3",
     "mysql2": "^2.3.3",
     "node": "^19.1.0",
-    "typescript": "^4.9.3"
+    "ts-node": "^10.9.1"
   }
 }
