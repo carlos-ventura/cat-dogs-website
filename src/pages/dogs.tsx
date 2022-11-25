@@ -10,7 +10,7 @@ const isPrime = (n: number): boolean => {
 }
 
 const allOnesBinary = (n: number): boolean => {
-  const binary = n.toString(2)
+  const binary = n.toString(2).replace('-', '')
   return binary.length >= 4 && !binary.includes('0')
 }
 
@@ -20,10 +20,10 @@ const DogsPage = (): JSX.Element => {
   const [cycle, setCycle] = useState(false)
 
   const dogIndexLogic = (n: number): number => {
-    if (n < 0) {
-      return 0
-    } else if (allOnesBinary(n)) {
+    if (allOnesBinary(n)) {
       return 10
+    } else if (n < 0) {
+      return 0
     } else if (n > 100) {
       return 9
     } else if (isPrime(n)) {
