@@ -41,22 +41,27 @@ const DogsPage = (): JSX.Element => {
   }
 
   async function fetchDogDataGraphQL (index: number): Promise<void> {
-    const response = await fetch(String(process.env.GRAPHQL_URL), {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        query: `
-            query DogURL($index: Int!) {
-              dogURL(index: $index)
-            }
-        `,
-        variables: { index }
+    try {
+      const response = await fetch(String(process.env.GRAPHQL_URL), {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          query: `
+              query DogURL($index: Int!) {
+                dogURL(index: $index)
+              }
+          `,
+          variables: { index }
+        })
       })
-    })
-    const { data } = await response.json()
-    setDogURL(data.dogURL)
+      const { data } = await response.json()
+      setDogURL(data.dogURL)
+    } catch (err) {
+      alert('Server / GraphQL error')
+      console.log(err)
+    }
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {

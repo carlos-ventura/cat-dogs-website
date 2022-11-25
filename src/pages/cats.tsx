@@ -6,21 +6,26 @@ const CatPage = (): JSX.Element => {
   const [catFacts, setCatFacts] = useState<string []>([])
 
   async function fetchCatDataGraphQL (): Promise<void> {
-    const response = await fetch(String(process.env.GRAPHQL_URL), {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        query: `
-          query {
-            catFact
-          }
-        `
+    try {
+      const response = await fetch(String(process.env.GRAPHQL_URL), {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          query: `
+            query {
+              catFact
+            }
+          `
+        })
       })
-    })
-    const { data } = await response.json()
-    setCatFacts((prevCatFacts) => ([...prevCatFacts, data.catFact]))
+      const { data } = await response.json()
+      setCatFacts((prevCatFacts) => ([...prevCatFacts, data.catFact]))
+    } catch (err) {
+      alert('Server / GraphQL error')
+      console.log(err)
+    }
   }
 
   return (
