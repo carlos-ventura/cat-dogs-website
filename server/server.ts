@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { ApolloServer } = require('apollo-server')
 const Constant = require('./data/DogConstant')
+const mysql = require('mysql2')
 
 const typeDefs = `
   type Query {
@@ -34,3 +35,17 @@ server
   .listen({ port: 9000 })
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   .then((url: any) => console.log(`Server running at ${url.url}`))
+
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'password',
+  database: 'doglogic'
+})
+
+connection.connect(function (err: { message: string }) {
+  if (err !== null) {
+    return console.error(err.message)
+  }
+  console.log('Connected to the MySQL server.')
+})
