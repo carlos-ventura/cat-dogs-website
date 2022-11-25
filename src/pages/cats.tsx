@@ -5,11 +5,22 @@ import { useState } from 'react'
 const CatPage = (): JSX.Element => {
   const [catFacts, setCatFacts] = useState<string []>([])
 
-  async function fetchData (): Promise<void> {
-    const url = 'https://catfact.ninja/fact'
-    const response = await fetch(url)
-    const fact = await response.json()
-    setCatFacts((prevCatFacts) => ([...prevCatFacts, fact.fact]))
+  async function fetchCatDataGraphQL (): Promise<void> {
+    const response = await fetch(String(process.env.GRAPHQL_URL), {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        query: `
+          query {
+            catFact
+          }
+        `
+      })
+    })
+    const { data } = await response.json()
+    setCatFacts((prevCatFacts) => ([...prevCatFacts, data.catFact]))
   }
 
   return (
@@ -17,7 +28,7 @@ const CatPage = (): JSX.Element => {
       <h1>Cats page</h1>
       <Link to="/">Back to Home</Link>
       <br/><br/>
-      <button onClick={() => { void fetchData() }}>Generate new fact</button>
+      <button onClick={() => { void fetchCatDataGraphQL() }}>Generate new fact</button>
       {catFacts.map((fact, index) => <p key={`fact-${index}`}>{index}. {fact}</p>)}
     </main>
   )
