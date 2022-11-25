@@ -1,4 +1,4 @@
-const dogURLs = [
+const DOG_URLS = [
   'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=1600',
   'https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg?auto=compress&cs=tinysrgb&w=1600',
   'https://images.pexels.com/photos/1805164/pexels-photo-1805164.jpeg?auto=compress&cs=tinysrgb&w=1600',
@@ -12,4 +12,4 @@ const dogURLs = [
   'https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
 ]
 
-export default dogURLs
+export default DOG_URLS
