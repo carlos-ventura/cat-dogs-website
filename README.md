@@ -14,4 +14,14 @@
     npm run develop
 
 **Open website**
-    Site is now running at http://localhost:8000
+
+Site is now running at http://localhost:8000
+
+**Start server**
+
+    cd cat-dogs-website/server
+    ts-node server.ts
+
+**Open server website**
+
+Server is now running at http://localhost:9000
