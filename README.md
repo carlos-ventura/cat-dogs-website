@@ -17,6 +17,13 @@
 
 Site is now running at http://localhost:8000
 
+**Requirements before running the server**
+
+1. MySQL server
+    1. host = localhost
+    2. user = root
+    3. password = password
+
 **Run server**
 
     cd cat-dogs-website/server
