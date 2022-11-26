@@ -16,13 +16,23 @@ const allOnesBinary = (n: number): boolean => {
   return binary.length >= 4 && !binary.includes('0')
 }
 
-const dogIndexLogic = (n: number): number => {
+async function checkStoreProcedure (n: number, connection: any): Promise<void> {
+  const sql = 'CALL doglogic.dogIndexLogic(?)'
+  return await new Promise((resolve, reject) => {
+    connection.query(sql, n, function (error, results, fields) {
+      if (error !== null) reject(error)
+      resolve(results[0][0].indexNumber)
+    })
+  })
+}
+
+const dogIndexLogic = async (n: number, connection: any): Promise<number> => {
   if (allOnesBinary(n)) {
     return 10
-  } else if (n < 0) {
-    return 0
-  } else if (n > 100) {
-    return 9
+  }
+  const databaseValue = await checkStoreProcedure(n, connection)
+  if (databaseValue !== null) {
+    return Number(databaseValue)
   } else if (isPrime(n)) {
     return randomIntFromInterval(1, 3)
   } else if (n % 5 === 0) {

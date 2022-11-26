@@ -18,19 +18,20 @@ async function fetchCatData (): Promise<String> {
   return fact.fact
 }
 
-function fetchDogData (inputNumber: number): String {
-  const index = computeLib.dogIndexLogic(inputNumber, connection)
+async function fetchDogData (inputNumber: number): Promise<String> {
+  const index = await computeLib.dogIndexLogic(inputNumber, connection)
   return Constant.DOG_URLS[index]
 }
 
 const resolvers = {
   Query: {
     catFact: fetchCatData,
-    dogURL: (_: unknown, { inputNumber }: { inputNumber: number }): String => {
-      return fetchDogData(inputNumber)
+    dogURL: async (_: unknown, { inputNumber }: { inputNumber: number }): Promise<String> => {
+      return await fetchDogData(inputNumber)
     }
   }
 }
+
 const server = new ApolloServer({ typeDefs, resolvers })
 
 server
