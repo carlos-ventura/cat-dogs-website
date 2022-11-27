@@ -35,7 +35,7 @@ const resolvers = {
 const server = new ApolloServer({ typeDefs, resolvers })
 
 server
-  .listen({ port: 9000 })
+  .listen({ port: 9000, hostname: '0.0.0.0' })
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   .then((url: any) => console.log(`Server running at ${url.url}`))
 
