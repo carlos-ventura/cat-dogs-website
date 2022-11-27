@@ -18,15 +18,18 @@ async function fetchCatData (): Promise<String> {
   return fact.fact
 }
 
-async function fetchDogData (inputNumber: number): Promise<String> {
+async function fetchDogData (inputNumber: number): Promise<String | null> {
   const index = await computeLib.dogIndexLogic(inputNumber, connection)
+  if (index === null) {
+    return null
+  }
   return Constant.DOG_URLS[index]
 }
 
 const resolvers = {
   Query: {
     catFact: fetchCatData,
-    dogURL: async (_: unknown, { inputNumber }: { inputNumber: number }): Promise<String> => {
+    dogURL: async (_: unknown, { inputNumber }: { inputNumber: number }): Promise<String | null> => {
       return await fetchDogData(inputNumber)
     }
   }
