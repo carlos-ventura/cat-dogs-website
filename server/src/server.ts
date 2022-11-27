@@ -43,10 +43,10 @@ server
   .then((url: any) => console.log(`Server running at ${url.url}`))
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'password',
-  database: 'doglogic'
+  host: String(process.env.HOST),
+  user: String(process.env.USER),
+  password: String(process.env.PASSWORD),
+  database: String(process.env.DATABASE)
 })
 
 connection.connect(function (err: { message: string }) {
