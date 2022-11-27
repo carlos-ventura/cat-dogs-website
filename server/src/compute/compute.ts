@@ -19,21 +19,28 @@ const allOnesBinary = (n: number): boolean => {
 async function checkStoreProcedure (n: number, connection: any): Promise<void> {
   const sql = 'CALL doglogic.dogIndexLogic(?)'
   return await new Promise((resolve, reject) => {
-    connection.query(sql, n, function (error, results, fields) {
+    connection.query(sql, n, function (error, results) {
       if (error !== null) reject(error)
       resolve(results[0][0].indexNumber)
     })
   })
 }
 
-const dogIndexLogic = async (n: number, connection: any): Promise<number> => {
+const dogIndexLogic = async (n: number, connection: any): Promise<number | null> => {
   if (allOnesBinary(n)) {
     return 10
   }
-  const databaseValue = await checkStoreProcedure(n, connection)
-  if (databaseValue !== null) {
-    return Number(databaseValue)
-  } else if (isPrime(n)) {
+  try {
+    const databaseValue = await checkStoreProcedure(n, connection)
+    if (databaseValue !== null) {
+      return Number(databaseValue)
+    }
+  } catch (e) {
+    console.log(e)
+    console.log('Database connection error')
+    return null
+  }
+  if (isPrime(n)) {
     return randomIntFromInterval(1, 3)
   } else if (n % 5 === 0) {
     cycle = !cycle

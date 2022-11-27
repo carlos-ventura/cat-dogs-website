@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const mysqlCheck = require('mysql2')
+const mysqlCheck = require('mysql2/promise')
 
 const simpleLogicProcedure =
 'CREATE procedure if not exists doglogic.dogIndexLogic(IN inputNumber int)\n' +
@@ -11,22 +11,31 @@ const simpleLogicProcedure =
  'select indexNumber;\n' +
  'end'
 
-const connectionCheck = mysqlCheck.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'password'
-})
+async function main (): Promise<void> {
+  try {
+    const connectionCheck = await mysqlCheck.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: 'password'
+    })
 
-connectionCheck.connect(function (err: any) {
-  if (err !== null) throw err
-  console.log('Connected!')
-  connectionCheck.query('CREATE DATABASE IF NOT EXISTS doglogic', function (err: any) {
-    if (err !== null) throw err
-    console.log('Database created / found')
-  })
-  connectionCheck.query(simpleLogicProcedure, function (err: any) {
-    if (err !== null) throw err
-    console.log('Procedure created / found')
-  })
-  connectionCheck.end()
-})
+    connectionCheck.connect(function (err: any) {
+      if (err !== null) throw err
+      console.log('Connected!')
+      connectionCheck.query('CREATE DATABASE IF NOT EXISTS doglogic', function (err: any) {
+        if (err !== null) throw err
+        console.log('Database created / found')
+      })
+      connectionCheck.query(simpleLogicProcedure, function (err: any) {
+        if (err !== null) throw err
+        console.log('Procedure created / found')
+      })
+      connectionCheck.end()
+    })
+  } catch (e) {
+    console.log(e)
+    console.log('Problem with Database connection')
+  }
+}
+
+void main()
