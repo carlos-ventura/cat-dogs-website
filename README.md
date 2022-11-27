@@ -33,3 +33,17 @@ Site is now running at http://localhost:8000
 **Open server website**
 
 Server is now running at http://localhost:9000
+
+**Docker commands**
+
+    cd cat-dogs-website/client
+    docker build -f Dockerfile -t client .
+    docker run -it -p 8000:8000 client 
+
+    cd cat-dogs-website/server
+    docker build -f Dockerfile -t server .
+    docker run -it -p 9000:9000 server
+
+    OR
+
+    docker-compose up --build
