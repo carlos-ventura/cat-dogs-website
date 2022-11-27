@@ -12,7 +12,7 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_HOST: localhost
 
-  api:
+  server:
     build:
       dockerfile: Dockerfile
       context: "./server"
@@ -22,7 +22,12 @@ services:
       - /app/node_modules
       - ./server:/app
     environment:
-      MYSQL_HOST_IP: localhost
+      MYSQL_HOST_IP: mysql_db
+      STATIC_DOG: 8
+      HOST: mysql_db
+      USER: root
+      DATABASE: doglogic
+      DOCKER: true
     ports:
       - 9000:9000
 

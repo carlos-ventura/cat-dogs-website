@@ -17,12 +17,16 @@
 
 Site is now running at http://localhost:8000
 
-**Requirements before running the server**
+**Requirements before running the server locally**
 
 1. MySQL server
     1. host = localhost
     2. user = root
     3. password = password
+
+**Requirements running the app either locally or in Docker**
+
+1. Port 3306 must be free
 
 **Run server**
 
@@ -42,15 +46,5 @@ Server is now running at http://localhost:9000
     1. Troubles with Node + TypeScript thus the existence of "any" as type
 
 **Docker commands**
-
-    cd cat-dogs-website/client
-    docker build -f Dockerfile -t client .
-    docker run -it -p 8000:8000 client 
-
-    cd cat-dogs-website/server
-    docker build -f Dockerfile -t server .
-    docker run -it -p 9000:9000 server
-
-    OR
 
     docker-compose up --build
