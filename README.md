@@ -42,8 +42,9 @@ Server is now running at http://localhost:9000
 
 1. Website started running a bit slower when getting data from graphQL + Node server
     1. Commit SHA without server - a7ea4b455f4389960ae03446ae5e0bf03ae89216)
-2. Given higher priority to features than the best coding practise with TypeScript
+2. Given higher priority to features than the best coding practises
     1. Troubles with Node + TypeScript thus the existence of "any" as type
+    2. Troubles with sql server inside docker taking time to start, conflicts with app server
 
 **Docker commands**
 
