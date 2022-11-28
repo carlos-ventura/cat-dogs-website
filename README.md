@@ -40,7 +40,6 @@ Server is now running at http://localhost:9000
 
 **Docker commands**
 
-<<<<<<< HEAD
     cd cat-dogs-website/client
     docker build -f Dockerfile -t client .
     docker run -it -p 8000:8000 client 
@@ -52,6 +51,3 @@ Server is now running at http://localhost:9000
     OR
 
     docker-compose up --build
-=======
-    docker-compose up --build
->>>>>>> 40b28a7 (Update docker files)
