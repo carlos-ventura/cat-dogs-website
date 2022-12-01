@@ -27,7 +27,7 @@ services:
       HOST: mysql_db
       USER: root
       DATABASE: doglogic
-      DOCKER: true
+      DOCKER: "true"
     ports:
       - 9000:9000
 
