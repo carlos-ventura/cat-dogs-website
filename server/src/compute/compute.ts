@@ -1,36 +1,19 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-require('dotenv').config()
+import * as dotenv from 'dotenv'
+import { Connection } from 'mysql2'
+import { allOnesBinary } from '../utils/allOnesBinary'
+import { isPrime } from '../utils/isPrime'
+import { randomIntFromInterval } from '../utils/randomIntFromInterval'
+import { storeProcedureResult } from './storeProcedureResult'
 
+dotenv.config()
 let cycle = false
 
-const randomIntFromInterval = (min: number, max: number): number => Math.floor(Math.random() * (max - min + 1) + min)
-
-const isPrime = (n: number): boolean => {
-  for (let i = 2; i < n; i++) { if (n % i === 0) return false }
-  return n > 1
-}
-
-const allOnesBinary = (n: number): boolean => {
-  const binary = n.toString(2).replace('-', '')
-  return binary.length >= 4 && !binary.includes('0')
-}
-
-async function checkStoreProcedure (n: number, connection: any): Promise<void> {
-  const sql = 'CALL doglogic.dogIndexLogic(?)'
-  return await new Promise((resolve, reject) => {
-    connection.query(sql, n, function (error, results) {
-      if (error !== null) reject(error)
-      resolve(results[0][0].indexNumber)
-    })
-  })
-}
-
-const dogIndexLogic = async (n: number, connection: any): Promise<number | null> => {
+export const dogIndexLogic = async (n: number, connection: Connection): Promise<number | null> => {
   if (allOnesBinary(n)) {
     return 10
   }
   try {
-    const databaseValue = await checkStoreProcedure(n, connection)
+    const databaseValue = await storeProcedureResult(n, connection)
     if (databaseValue !== null) {
       return Number(databaseValue)
     }
@@ -52,5 +35,3 @@ const dogIndexLogic = async (n: number, connection: any): Promise<number | null>
     return Number(process.env.STATIC_DOG)
   }
 }
-
-module.exports = { dogIndexLogic }

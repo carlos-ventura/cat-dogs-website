@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prestart": "ts-node ./src/scripts/mysqlCheck.ts",
+    "prestart": "ts-node ./src/database/setup.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node ./src/server.ts"
   },
@@ -24,6 +24,7 @@
   "dependencies": {
     "apollo-server": "^3.11.1",
     "dotenv": "^16.0.3",
+    "lodash": "^4.17.21",
     "mysql2": "^2.3.3",
     "node": "^19.1.0",
     "ts-node": "^10.9.1"

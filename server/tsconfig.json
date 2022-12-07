@@ -3,5 +3,5 @@
       "lib": ["DOM"],
       "strictNullChecks": true, 
     },
-    "include": ["./src/*", "./src/data/*", "./src/scripts/*", "./src/compute/*"]
+    "include": ["./src/*", "./src/*/*"]
   }
